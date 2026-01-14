@@ -4,6 +4,7 @@ from data_loader import load_market_data
 from profiler import benchmark_strategies, profile_with_cprofile
 from reporting import plot_runtime
 from strategies import NaiveMovingAverageStrategy, WindowedMovingAverageStrategy
+from data_loader import load_market_data, generate_synthetic_market_data
 
 
 def run_experiment(
@@ -14,7 +15,8 @@ def run_experiment(
     naive_times = []
     windowed_times = []
 
-    full_data = load_market_data(csv_path)
+    base_data = load_market_data(csv_path)
+    full_data = generate_synthetic_market_data(base_data, input_size)
 
     for size in input_sizes:
         data = full_data[:size]
